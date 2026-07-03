@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charcoal Portrait Gallery — Esme Lillico | Lillico Art</title>
+  <meta name="description" content="View original charcoal and graphite portraits by Esme Lillico, Suffolk portrait artist. A body of work exploring identity, intimacy, and the quiet truth of a face.">
+  <meta property="og:title" content="Charcoal Portrait Gallery — Esme Lillico | Lillico Art">
+  <meta property="og:description" content="View original charcoal and graphite portraits by Esme Lillico, Suffolk portrait artist. A body of work exploring identity, intimacy, and the quiet truth of a face.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.lillicoart.com/gallery.html">
+  <meta property="og:image" content="https://www.lillicoart.com/includes/Images/sovereign.webp">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+  <!-- Google Fonts — async (non-render-blocking) -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
+
+  <!-- Lenis smooth scroll -->
+  <script defer src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+  <style>
+    nav { position: fixed; top: 0; left: 0; right: 0; height: 64px;
+          z-index: 1000; background: transparent; }
+    .nav-brand { font-family: 'Cormorant Garamond', 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+                 font-size: 1.25rem; letter-spacing: 0.08em; text-transform: uppercase;
+                 color: #fff; text-decoration: none; }
+  </style>
+
+  <meta name="theme-color" content="#0d0d0d">
+  <link rel="canonical" href="https://www.lillicoart.com/gallery.html">
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+  <link rel="icon" href="includes/Images/Favicon.webp" type="image/webp">
+  <link rel="apple-touch-icon" href="includes/Images/Favicon.webp">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- No-JS fallback -->
+  <noscript><style>body{opacity:1!important;animation:none!important}</style></noscript>
+</head>
+<body>
+
+  <!-- Charcoal mark -->
+  <div class="page-draw" aria-hidden="true"></div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand"><img src="includes/Images/Logo.webp" alt="Lillico Art" class="nav-logo" width="109" height="109"></a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+        <li><a href="commissions.html" class="nav-link">Commissions</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="index.html#contact" class="nav-link nav-link-cta">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- MODE 1 — Immersive single-piece viewer -->
+  <div class="gallery-immersive" id="gallery-immersive">
+
+    <div class="gallery-piece active" data-index="0" data-title="Sovereign" data-meta="Charcoal on paper &middot; 84&times;60cm &middot; A meditation on identity and adornment" data-category="portraits">
+      <img src="includes/Images/sovereign.webp" width="999" height="1400" alt="Sovereign — charcoal portrait, a meditation on identity and adornment" fetchpriority="high" decoding="async">
+    </div>
+
+    <div class="gallery-piece" data-index="1" data-title="Crowned" data-meta="Charcoal on paper &middot; 84&times;60cm &middot; Profile study exploring texture and form" data-category="portraits">
+      <img src="includes/Images/crowned.webp" width="1014" height="1400" alt="Crowned — charcoal profile study exploring texture and form" decoding="async">
+    </div>
+
+    <div class="gallery-piece" data-index="2" data-title="Masculinity" data-meta="Charcoal on paper &middot; 84&times;60cm &middot; Softness as strength — tenderness and bloom" data-category="portraits">
+      <img src="includes/Images/masculinity.webp" width="1400" height="972" alt="Masculinity — charcoal portrait, softness as strength, tenderness and bloom" decoding="async">
+    </div>
+
+    <div class="gallery-piece" data-index="3" data-title="A Grandfather's Hands" data-meta="Charcoal on paper &middot; 60&times;60cm &middot; Generations held in a single gesture" data-category="studies">
+      <img src="includes/Images/a-grandfathers-hands.webp" width="1252" height="1400" alt="A Grandfather's Hands — charcoal drawing, generations held in a single gesture" decoding="async">
+    </div>
+
+    <div class="gallery-piece" data-index="4" data-title="Adorned" data-meta="Charcoal on paper &middot; 60&times;60cm &middot; The body as canvas — ink and flesh in dialogue" data-category="portraits">
+      <img src="includes/Images/adorned.webp" width="1319" height="1400" alt="Adorned — charcoal drawing, the body as canvas, ink and flesh in dialogue" decoding="async">
+    </div>
+
+    <div class="gallery-piece" data-index="5" data-title="En Pointe" data-meta="Charcoal on paper &middot; 60&times;60cm &middot; The architecture of a dancer's back" data-category="figure-studies">
+      <img src="includes/Images/en-pointe.webp" width="1400" height="1325" alt="En Pointe — charcoal drawing, the architecture of a dancer's back" decoding="async">
+    </div>
+
+    <div class="gallery-piece" data-index="6" data-title="Commission — Wedding Portrait" data-meta="Charcoal on paper &middot; Commission" data-category="commissions">
+      <img src="includes/Images/wedding-commision.webp" width="1400" height="983" alt="Wedding portrait commission — charcoal on paper" decoding="async">
+    </div>
+
+    <div class="gallery-piece" data-index="7" data-title="Commission Piece" data-meta="Charcoal on paper &middot; Commission" data-category="commissions">
+      <img src="includes/Images/commission-pieces-(1).webp" width="1051" height="1400" alt="Portrait commission — charcoal on paper, head and shoulders study" decoding="async">
+    </div>
+
+    <div class="gallery-piece" data-index="8" data-title="Commission Piece" data-meta="Charcoal on paper &middot; Commission" data-category="commissions">
+      <img src="includes/Images/commission-pieces-(2).webp" width="1051" height="1400" alt="Portrait commission — charcoal drawing, intimate figure study" decoding="async">
+    </div>
+
+    <div class="gallery-piece" data-index="9" data-title="Commission Piece" data-meta="Charcoal on paper &middot; Commission" data-category="commissions">
+      <img src="includes/Images/commission-pieces-(3).webp" width="1051" height="1400" alt="Portrait commission — charcoal on paper, character study" decoding="async">
+    </div>
+
+    <!-- Persistent UI -->
+    <div class="gallery-immersive__counter">
+      <span class="gallery-current">01</span>
+      <span class="gallery-sep">&mdash;</span>
+      <span class="gallery-total">10</span>
+    </div>
+
+    <div class="gallery-immersive__info">
+      <span class="gallery-piece-title">Sovereign</span>
+      <span class="label gallery-piece-meta">Charcoal on paper &middot; 84&times;60cm &middot; A meditation on identity and adornment</span>
+    </div>
+
+    <div class="gallery-immersive__nav">
+      <button class="gallery-prev" aria-label="Previous piece">
+        <span class="label">Prev</span>
+      </button>
+      <button class="gallery-next" aria-label="Next piece">
+        <span class="label">Next</span>
+      </button>
+    </div>
+
+    <!-- Thumbnail filmstrip -->
+    <div class="gallery-thumbstrip" aria-label="Gallery thumbnail navigation">
+      <button class="gallery-thumb active" data-index="0"><img src="includes/Images/sovereign.webp" width="120" height="120" alt="Sovereign" loading="eager"></button>
+      <button class="gallery-thumb" data-index="1"><img src="includes/Images/crowned.webp" width="120" height="120" alt="Crowned" loading="eager"></button>
+      <button class="gallery-thumb" data-index="2"><img src="includes/Images/masculinity.webp" width="120" height="120" alt="Masculinity" loading="eager"></button>
+      <button class="gallery-thumb" data-index="3"><img src="includes/Images/a-grandfathers-hands.webp" width="120" height="120" alt="A Grandfather's Hands" loading="eager"></button>
+      <button class="gallery-thumb" data-index="4"><img src="includes/Images/adorned.webp" width="120" height="120" alt="Adorned" loading="eager"></button>
+      <button class="gallery-thumb" data-index="5"><img src="includes/Images/en-pointe.webp" width="120" height="120" alt="En Pointe" loading="eager"></button>
+      <button class="gallery-thumb" data-index="6"><img src="includes/Images/wedding-commision.webp" width="120" height="120" alt="Commission — Wedding Portrait" loading="eager"></button>
+      <button class="gallery-thumb" data-index="7"><img src="includes/Images/commission-pieces-(1).webp" width="120" height="120" alt="Portrait commission — head and shoulders" loading="eager"></button>
+      <button class="gallery-thumb" data-index="8"><img src="includes/Images/commission-pieces-(2).webp" width="120" height="120" alt="Portrait commission — figure study" loading="eager"></button>
+      <button class="gallery-thumb" data-index="9"><img src="includes/Images/commission-pieces-(3).webp" width="120" height="120" alt="Portrait commission — character study" loading="eager"></button>
+    </div>
+
+    <button class="gallery-mode-toggle" aria-label="Switch to grid view">
+      <span class="label">Grid view</span>
+    </button>
+
+    <button class="gallery-fullscreen-btn" aria-label="Enter fullscreen">
+      <svg class="icon-expand" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="15 3 21 3 21 9"></polyline>
+        <polyline points="9 21 3 21 3 15"></polyline>
+        <line x1="21" y1="3" x2="14" y2="10"></line>
+        <line x1="3" y1="21" x2="10" y2="14"></line>
+      </svg>
+      <svg class="icon-compress" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none;">
+        <polyline points="4 14 10 14 10 20"></polyline>
+        <polyline points="20 10 14 10 14 4"></polyline>
+        <line x1="10" y1="14" x2="3" y2="21"></line>
+        <line x1="21" y1="3" x2="14" y2="10"></line>
+      </svg>
+    </button>
+  </div>
+
+  <!-- MODE 2 — Grid view -->
+  <div class="gallery-grid-view" id="gallery-grid-view">
+    <div class="gallery-grid-header">
+      <button class="gallery-back-btn" aria-label="Switch to immersive view">
+        <span class="label">&larr; Immersive view</span>
+      </button>
+    </div>
+
+    <!-- Filters -->
+    <div class="gallery-filters">
+      <button class="filter-btn active" data-filter="all">All Work</button>
+      <button class="filter-btn" data-filter="portraits">Portraits</button>
+      <button class="filter-btn" data-filter="studies">Studies</button>
+      <button class="filter-btn" data-filter="figure-studies">Figure Studies</button>
+      <button class="filter-btn" data-filter="commissions">Commissions</button>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="gallery-grid">
+      <div class="gallery-item" data-orientation="portrait" data-category="portraits">
+        <img src="includes/Images/sovereign.webp" width="999" height="1400" alt="Sovereign — charcoal portrait" loading="lazy" decoding="async">
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-title">Sovereign</span>
+          <span class="gallery-item-category">Charcoal on paper &middot; 84&times;60cm</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-orientation="portrait" data-category="portraits">
+        <img src="includes/Images/crowned.webp" width="1014" height="1400" alt="Crowned — charcoal profile study" loading="lazy" decoding="async">
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-title">Crowned</span>
+          <span class="gallery-item-category">Charcoal on paper &middot; 84&times;60cm</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-orientation="landscape" data-category="portraits">
+        <img src="includes/Images/masculinity.webp" width="1400" height="972" alt="Masculinity — charcoal portrait" loading="lazy" decoding="async">
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-title">Masculinity</span>
+          <span class="gallery-item-category">Charcoal on paper &middot; 84&times;60cm</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="studies">
+        <img src="includes/Images/a-grandfathers-hands.webp" width="1252" height="1400" alt="A Grandfather's Hands — charcoal drawing" loading="lazy" decoding="async">
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-title">A Grandfather's Hands</span>
+          <span class="gallery-item-category">Charcoal on paper &middot; 60&times;60cm</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="portraits">
+        <img src="includes/Images/adorned.webp" width="1319" height="1400" alt="Adorned — charcoal drawing" loading="lazy" decoding="async">
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-title">Adorned</span>
+          <span class="gallery-item-category">Charcoal on paper &middot; 60&times;60cm</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="figure-studies">
+        <img src="includes/Images/en-pointe.webp" width="1400" height="1325" alt="En Pointe — charcoal drawing" loading="lazy" decoding="async">
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-title">En Pointe</span>
+          <span class="gallery-item-category">Charcoal on paper &middot; 60&times;60cm</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-orientation="landscape" data-category="commissions">
+        <img src="includes/Images/wedding-commision.webp" width="1400" height="983" alt="Wedding portrait commission" loading="lazy" decoding="async">
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-title">Commission — Wedding Portrait</span>
+          <span class="gallery-item-category">Charcoal on paper &middot; Commission</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-orientation="portrait" data-category="commissions">
+        <img src="includes/Images/commission-pieces-(1).webp" width="1051" height="1400" alt="Portrait commission — charcoal on paper, head and shoulders study" loading="lazy" decoding="async">
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-title">Commission Piece</span>
+          <span class="gallery-item-category">Charcoal on paper &middot; Commission</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-orientation="portrait" data-category="commissions">
+        <img src="includes/Images/commission-pieces-(2).webp" width="1051" height="1400" alt="Portrait commission — charcoal drawing, intimate figure study" loading="lazy" decoding="async">
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-title">Commission Piece</span>
+          <span class="gallery-item-category">Charcoal on paper &middot; Commission</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-orientation="portrait" data-category="commissions">
+        <img src="includes/Images/commission-pieces-(3).webp" width="1051" height="1400" alt="Portrait commission — charcoal on paper, character study" loading="lazy" decoding="async">
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-title">Commission Piece</span>
+          <span class="gallery-item-category">Charcoal on paper &middot; Commission</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="footer-copy">&copy; 2026 Lillico Art. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="mailto:lilli.co.art@gmail.com">lilli.co.art@gmail.com</a>
+        <a href="https://www.instagram.com/lilli.coart/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script defer src="cookie-consent.js"></script>
+  <script defer src="navigation.js"></script>
+</body>
+</html>
