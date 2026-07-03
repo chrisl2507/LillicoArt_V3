@@ -174,10 +174,10 @@ body {
   background-color: var(--ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Start hidden — GSAP fades in. CSS animation failsafe ensures
-     body becomes visible even if CDN scripts fail to load. */
+  /* Fade in immediately via CSS — first paint never waits on JS.
+     GSAP only handles the fade-out on internal navigation. */
   opacity: 0;
-  animation: body-failsafe 0.4s ease 2s forwards;
+  animation: body-failsafe 0.4s ease forwards;
 }
 
 /* Homepage — longer failsafe delay for opening sequence */

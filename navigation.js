@@ -103,14 +103,8 @@
      PAGE TRANSITIONS — GSAP fade
      ============================================ */
 
-  // Fade in on every page (except home — has its own opening sequence)
-  if (typeof gsap !== 'undefined' && !document.body.classList.contains('home')) {
-    document.body.style.animation = 'none';
-    gsap.fromTo(document.body,
-      { opacity: 0 },
-      { opacity: 1, duration: 0.5, ease: 'power2.out' }
-    );
-  }
+  // Fade-in is pure CSS (body-failsafe animation) so first paint
+  // never waits on the CDN scripts. GSAP only handles fade-out below.
 
   // Fade out on link click
   document.querySelectorAll('a[href]').forEach(function (link) {
@@ -145,9 +139,11 @@
 
       e.preventDefault();
       if (typeof gsap !== 'undefined') {
+        // Clear the CSS fade-in (fill:forwards would override GSAP's inline opacity)
+        document.body.style.animation = 'none';
         gsap.to(document.body, {
           opacity: 0,
-          duration: 0.35,
+          duration: 0.2,
           ease: 'power2.in',
           onComplete: function () { window.location.href = href; }
         });
@@ -404,24 +400,8 @@
   }
 
 
-  /* ============================================
-     REVEAL ANIMATIONS (Intersection Observer fallback)
-     ============================================ */
-  var revealElements = document.querySelectorAll('.reveal');
-  if (revealElements.length > 0) {
-    var revealObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-
-    revealElements.forEach(function (el) {
-      revealObserver.observe(el);
-    });
-  }
+  /* Reveal-on-scroll animations live in reveal.js — loaded ahead of
+     the CDN scripts so content never waits on jsdelivr. */
 
 
   /* ============================================
@@ -573,6 +553,9 @@
       var outgoing = pieces[currentPiece];
       var incoming = pieces[index];
 
+      // Ensure the incoming full-res image is loading (reveal.js defers them)
+      if (window.galleryHydrate) window.galleryHydrate(incoming.querySelector('img'));
+
       gsap.set(incoming, { opacity: 0 });
       gsap.set(incoming.querySelector('img'), { scale: 0.97 });
       incoming.classList.add('active');
@@ -670,13 +653,6 @@
 
     // Stop Lenis on gallery immersive mode — wheel is handled above
     if (lenis) lenis.stop();
-
-    // Fade in the gallery page
-    document.body.style.animation = 'none';
-    gsap.fromTo(document.body,
-      { opacity: 0 },
-      { opacity: 1, duration: 0.5, ease: 'power2.out' }
-    );
   }
 
 
