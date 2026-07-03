@@ -14,18 +14,20 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
   <!-- Google Fonts — async (non-render-blocking) -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
 
-  <!-- Lenis smooth scroll -->
-  <script defer src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <!-- Critical reveal + gallery hydration — runs before the libraries -->
+  <script defer src="reveal.js"></script>
 
-  <!-- GSAP + ScrollTrigger -->
-  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <!-- Lenis smooth scroll (self-hosted) -->
+  <script defer src="includes/vendor/lenis.min.js"></script>
+
+  <!-- GSAP + ScrollTrigger (self-hosted) -->
+  <script defer src="includes/vendor/gsap.min.js"></script>
+  <script defer src="includes/vendor/ScrollTrigger.min.js"></script>
 
   <style>
     nav { position: fixed; top: 0; left: 0; right: 0; height: 64px;
@@ -44,7 +46,7 @@
   <link rel="stylesheet" href="styles.css">
 
   <!-- No-JS fallback -->
-  <noscript><style>body{opacity:1!important;animation:none!important}</style></noscript>
+  <noscript><style>body{opacity:1!important;animation:none!important}.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
 
@@ -76,39 +78,39 @@
     </div>
 
     <div class="gallery-piece" data-index="1" data-title="Crowned" data-meta="Charcoal on paper &middot; 84&times;60cm &middot; Profile study exploring texture and form" data-category="portraits">
-      <img src="includes/Images/crowned.webp" width="1014" height="1400" alt="Crowned — charcoal profile study exploring texture and form" decoding="async">
+      <img data-src="includes/Images/crowned.webp" width="1014" height="1400" alt="Crowned — charcoal profile study exploring texture and form" decoding="async">
     </div>
 
     <div class="gallery-piece" data-index="2" data-title="Masculinity" data-meta="Charcoal on paper &middot; 84&times;60cm &middot; Softness as strength — tenderness and bloom" data-category="portraits">
-      <img src="includes/Images/masculinity.webp" width="1400" height="972" alt="Masculinity — charcoal portrait, softness as strength, tenderness and bloom" decoding="async">
+      <img data-src="includes/Images/masculinity.webp" width="1400" height="972" alt="Masculinity — charcoal portrait, softness as strength, tenderness and bloom" decoding="async">
     </div>
 
     <div class="gallery-piece" data-index="3" data-title="A Grandfather's Hands" data-meta="Charcoal on paper &middot; 60&times;60cm &middot; Generations held in a single gesture" data-category="studies">
-      <img src="includes/Images/a-grandfathers-hands.webp" width="1252" height="1400" alt="A Grandfather's Hands — charcoal drawing, generations held in a single gesture" decoding="async">
+      <img data-src="includes/Images/a-grandfathers-hands.webp" width="1252" height="1400" alt="A Grandfather's Hands — charcoal drawing, generations held in a single gesture" decoding="async">
     </div>
 
     <div class="gallery-piece" data-index="4" data-title="Adorned" data-meta="Charcoal on paper &middot; 60&times;60cm &middot; The body as canvas — ink and flesh in dialogue" data-category="portraits">
-      <img src="includes/Images/adorned.webp" width="1319" height="1400" alt="Adorned — charcoal drawing, the body as canvas, ink and flesh in dialogue" decoding="async">
+      <img data-src="includes/Images/adorned.webp" width="1319" height="1400" alt="Adorned — charcoal drawing, the body as canvas, ink and flesh in dialogue" decoding="async">
     </div>
 
     <div class="gallery-piece" data-index="5" data-title="En Pointe" data-meta="Charcoal on paper &middot; 60&times;60cm &middot; The architecture of a dancer's back" data-category="figure-studies">
-      <img src="includes/Images/en-pointe.webp" width="1400" height="1325" alt="En Pointe — charcoal drawing, the architecture of a dancer's back" decoding="async">
+      <img data-src="includes/Images/en-pointe.webp" width="1400" height="1325" alt="En Pointe — charcoal drawing, the architecture of a dancer's back" decoding="async">
     </div>
 
     <div class="gallery-piece" data-index="6" data-title="Commission — Wedding Portrait" data-meta="Charcoal on paper &middot; Commission" data-category="commissions">
-      <img src="includes/Images/wedding-commision.webp" width="1400" height="983" alt="Wedding portrait commission — charcoal on paper" decoding="async">
+      <img data-src="includes/Images/wedding-commision.webp" width="1400" height="983" alt="Wedding portrait commission — charcoal on paper" decoding="async">
     </div>
 
     <div class="gallery-piece" data-index="7" data-title="Commission Piece" data-meta="Charcoal on paper &middot; Commission" data-category="commissions">
-      <img src="includes/Images/commission-pieces-(1).webp" width="1051" height="1400" alt="Portrait commission — charcoal on paper, head and shoulders study" decoding="async">
+      <img data-src="includes/Images/commission-pieces-(1).webp" width="1051" height="1400" alt="Portrait commission — charcoal on paper, head and shoulders study" decoding="async">
     </div>
 
     <div class="gallery-piece" data-index="8" data-title="Commission Piece" data-meta="Charcoal on paper &middot; Commission" data-category="commissions">
-      <img src="includes/Images/commission-pieces-(2).webp" width="1051" height="1400" alt="Portrait commission — charcoal drawing, intimate figure study" decoding="async">
+      <img data-src="includes/Images/commission-pieces-(2).webp" width="1051" height="1400" alt="Portrait commission — charcoal drawing, intimate figure study" decoding="async">
     </div>
 
     <div class="gallery-piece" data-index="9" data-title="Commission Piece" data-meta="Charcoal on paper &middot; Commission" data-category="commissions">
-      <img src="includes/Images/commission-pieces-(3).webp" width="1051" height="1400" alt="Portrait commission — charcoal on paper, character study" decoding="async">
+      <img data-src="includes/Images/commission-pieces-(3).webp" width="1051" height="1400" alt="Portrait commission — charcoal on paper, character study" decoding="async">
     </div>
 
     <!-- Persistent UI -->
@@ -134,16 +136,16 @@
 
     <!-- Thumbnail filmstrip -->
     <div class="gallery-thumbstrip" aria-label="Gallery thumbnail navigation">
-      <button class="gallery-thumb active" data-index="0"><img src="includes/Images/sovereign.webp" width="120" height="120" alt="Sovereign" loading="eager"></button>
-      <button class="gallery-thumb" data-index="1"><img src="includes/Images/crowned.webp" width="120" height="120" alt="Crowned" loading="eager"></button>
-      <button class="gallery-thumb" data-index="2"><img src="includes/Images/masculinity.webp" width="120" height="120" alt="Masculinity" loading="eager"></button>
-      <button class="gallery-thumb" data-index="3"><img src="includes/Images/a-grandfathers-hands.webp" width="120" height="120" alt="A Grandfather's Hands" loading="eager"></button>
-      <button class="gallery-thumb" data-index="4"><img src="includes/Images/adorned.webp" width="120" height="120" alt="Adorned" loading="eager"></button>
-      <button class="gallery-thumb" data-index="5"><img src="includes/Images/en-pointe.webp" width="120" height="120" alt="En Pointe" loading="eager"></button>
-      <button class="gallery-thumb" data-index="6"><img src="includes/Images/wedding-commision.webp" width="120" height="120" alt="Commission — Wedding Portrait" loading="eager"></button>
-      <button class="gallery-thumb" data-index="7"><img src="includes/Images/commission-pieces-(1).webp" width="120" height="120" alt="Portrait commission — head and shoulders" loading="eager"></button>
-      <button class="gallery-thumb" data-index="8"><img src="includes/Images/commission-pieces-(2).webp" width="120" height="120" alt="Portrait commission — figure study" loading="eager"></button>
-      <button class="gallery-thumb" data-index="9"><img src="includes/Images/commission-pieces-(3).webp" width="120" height="120" alt="Portrait commission — character study" loading="eager"></button>
+      <button class="gallery-thumb active" data-index="0"><img src="includes/Images/thumbs/sovereign.webp" width="120" height="120" alt="Sovereign" loading="eager"></button>
+      <button class="gallery-thumb" data-index="1"><img src="includes/Images/thumbs/crowned.webp" width="120" height="120" alt="Crowned" loading="eager"></button>
+      <button class="gallery-thumb" data-index="2"><img src="includes/Images/thumbs/masculinity.webp" width="120" height="120" alt="Masculinity" loading="eager"></button>
+      <button class="gallery-thumb" data-index="3"><img src="includes/Images/thumbs/a-grandfathers-hands.webp" width="120" height="120" alt="A Grandfather's Hands" loading="eager"></button>
+      <button class="gallery-thumb" data-index="4"><img src="includes/Images/thumbs/adorned.webp" width="120" height="120" alt="Adorned" loading="eager"></button>
+      <button class="gallery-thumb" data-index="5"><img src="includes/Images/thumbs/en-pointe.webp" width="120" height="120" alt="En Pointe" loading="eager"></button>
+      <button class="gallery-thumb" data-index="6"><img src="includes/Images/thumbs/wedding-commision.webp" width="120" height="120" alt="Commission — Wedding Portrait" loading="eager"></button>
+      <button class="gallery-thumb" data-index="7"><img src="includes/Images/thumbs/commission-pieces-(1).webp" width="120" height="120" alt="Portrait commission — head and shoulders" loading="eager"></button>
+      <button class="gallery-thumb" data-index="8"><img src="includes/Images/thumbs/commission-pieces-(2).webp" width="120" height="120" alt="Portrait commission — figure study" loading="eager"></button>
+      <button class="gallery-thumb" data-index="9"><img src="includes/Images/thumbs/commission-pieces-(3).webp" width="120" height="120" alt="Portrait commission — character study" loading="eager"></button>
     </div>
 
     <button class="gallery-mode-toggle" aria-label="Switch to grid view">
