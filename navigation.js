@@ -272,9 +272,11 @@
     // --- Portrait statement — clip-path wipe reveal ---
     gsap.utils.toArray('.portrait-statement__inner').forEach(function (el) {
       gsap.from(el, {
-        clipPath: 'inset(100% 0% 0% 0%)',
+        clipPath: 'inset(100% 0% 0% 0% round 1.5rem)',
         ease: 'power3.out',
         duration: 1.0,
+        // Drop the clip once done so the bezel frame outside the box shows
+        clearProps: 'clipPath',
         scrollTrigger: {
           trigger: el,
           start: 'top 80%',
@@ -478,7 +480,7 @@
         opacity: 0.38,
         zIndex: 1,
         duration: CS_DUR,
-        ease: 'power2.inOut'
+        ease: 'power3.out'
       });
 
       // Animate: new active slides in from its current peek position
@@ -487,7 +489,7 @@
         opacity: 1,
         zIndex: 2,
         duration: CS_DUR,
-        ease: 'power2.inOut',
+        ease: 'power3.out',
         onComplete: function () { csAnimating = false; }
       });
 
