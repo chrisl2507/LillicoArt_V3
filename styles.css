@@ -56,11 +56,13 @@
   --section-padding-desktop: 6rem 5%;
 
   /* Transitions */
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 150ms var(--ease-out);
+  --transition-base: 250ms var(--ease-out);
+  --transition-slow: 500ms var(--ease-out);
 
-  /* Easing */
+  /* Easing — stronger than the built-in curves */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Letter spacing */
@@ -183,7 +185,7 @@ body {
 /* Homepage — longer failsafe delay for opening sequence */
 body.home {
   opacity: 0;
-  animation: body-failsafe 0.4s ease 3.5s forwards;
+  animation: body-failsafe 0.4s ease 2s forwards;
 }
 
 /* Failsafe: if GSAP never fires, CSS reveals the page */
@@ -200,7 +202,7 @@ body.home {
   background: var(--umber);
   transform: scaleX(0);
   transform-origin: left;
-  animation: drawLine 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0s forwards,
+  animation: drawLine 0.5s var(--ease-out) 0s forwards,
              fadeOutLine 0.3s ease 0.6s forwards;
   z-index: 9999;
 }
@@ -461,7 +463,10 @@ body.page-interior nav {
 }
 
 .nav-link:hover { color: var(--white); }
-.nav-link:hover::after { transform: scaleX(1); }
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-link:hover::after { transform: scaleX(1); }
+}
 
 .nav-link.active {
   color: var(--white);
@@ -495,7 +500,7 @@ body.page-interior nav {
   padding: 0;
 }
 
-.nav-menu.is-open { display: flex; }
+.nav-menu.is-open { display: flex; animation: nav-menu-in 200ms var(--ease-out); }
 
 .nav-menu .nav-link {
   font-size: 0.9rem;
@@ -657,14 +662,22 @@ body.nav-open { overflow: hidden; }
 .hero-cta::after {
   content: '';
   display: block;
-  width: 48px;
+  /* Drawn at full length and scaled down, so the hover grows via
+     transform rather than width. Negative margin keeps the 48px footprint. */
+  width: 72px;
+  margin-right: -24px;
   height: 1px;
   background: var(--umber);
-  transition: width var(--transition-base);
+  transform: scaleX(0.667);
+  transform-origin: left;
+  transition: transform var(--transition-base);
 }
 
 .hero-cta:hover { color: var(--white); }
-.hero-cta:hover::after { width: 72px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-cta:hover::after { transform: scaleX(1); }
+}
 
 /* Nav links wrapper — for GSAP targeting */
 .nav-links {
@@ -721,14 +734,20 @@ body.nav-open { overflow: hidden; }
 
 .text-cta__line {
   display: block;
-  width: 48px;
+  width: 72px;
+  margin-right: -24px;
   height: 1px;
   background: var(--umber);
-  transition: width var(--transition-base);
+  transform: scaleX(0.667);
+  transform-origin: left;
+  transition: transform var(--transition-base);
 }
 
 .text-cta:hover { color: var(--white); }
-.text-cta:hover .text-cta__line { width: 72px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .text-cta:hover .text-cta__line { transform: scaleX(1); }
+}
 
 .composition-split__image {
   position: relative;
@@ -853,8 +872,10 @@ body.nav-open { overflow: hidden; }
   transform: scale(1.2);
 }
 
-.carousel-dot:hover {
-  background: rgba(255,255,255,0.45);
+@media (hover: hover) and (pointer: fine) {
+  .carousel-dot:not(.is-active):hover {
+    background: rgba(255,255,255,0.45);
+  }
 }
 
 .featured-work__footer {
@@ -1390,20 +1411,24 @@ body.nav-open { overflow: hidden; }
   border: none;
   cursor: pointer;
   padding: 0;
-  transition: gap var(--transition-base);
+  transition: transform 160ms var(--ease-out);
 }
 
 .btn-primary::after {
   content: '';
   display: block;
-  width: 48px;
+  width: 72px;
+  margin-right: -24px;
   height: 1px;
   background: var(--umber);
-  transition: width var(--transition-base);
+  transform: scaleX(0.667);
+  transform-origin: left;
+  transition: transform var(--transition-base);
 }
 
-.btn-primary:hover { gap: 1.25rem; }
-.btn-primary:hover::after { width: 72px; }
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover::after { transform: translateX(0.25rem) scaleX(1); }
+}
 
 .btn-primary--light { color: var(--white); }
 
@@ -1418,7 +1443,8 @@ body.nav-open { overflow: hidden; }
   text-decoration: none;
   border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 0.8em 1.8em;
-  transition: border-color var(--transition-fast), color var(--transition-fast);
+  transition: border-color var(--transition-fast), color var(--transition-fast),
+              transform 160ms var(--ease-out);
   border-radius: 0;
 }
 
@@ -1442,19 +1468,32 @@ body.nav-open { overflow: hidden; }
   padding: 1em 2em;
   cursor: pointer;
   border-radius: 0;
-  transition: gap var(--transition-base), background var(--transition-fast);
+  transition: background var(--transition-fast), transform 160ms var(--ease-out);
 }
 
 .btn-submit::after {
   content: '';
   display: block;
-  width: 32px;
+  width: 56px;
+  margin-right: -24px;
   height: 1px;
   background: var(--umber);
-  transition: width var(--transition-base);
+  transform: scaleX(0.571);
+  transform-origin: left;
+  transition: transform var(--transition-base);
 }
 
-.btn-submit:hover::after { width: 56px; }
+@media (hover: hover) and (pointer: fine) {
+  .btn-submit:hover::after { transform: scaleX(1); }
+}
+
+/* Press feedback — confirms the tap/click registered */
+.btn-primary:active,
+.btn-outline:active,
+.btn-submit:active,
+.la-consent__actions button:active {
+  transform: scale(0.97);
+}
 
 
 /* ============================================
@@ -1812,8 +1851,11 @@ body.nav-open { overflow: hidden; }
   transition: opacity var(--transition-base);
 }
 
-.gallery-item:hover .gallery-item-overlay { opacity: 1; }
-.gallery-item:hover img { transform: scale(1.04); }
+/* Gated so a tap on touch screens doesn't leave a stuck zoom */
+@media (hover: hover) and (pointer: fine) {
+  .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+  .gallery-item:hover img { transform: scale(1.04); }
+}
 
 .gallery-item-title {
   font-family: 'Cormorant Garamond', serif;
@@ -2292,7 +2334,7 @@ body.nav-open { overflow: hidden; }
     z-index: 999;
   }
 
-  .nav-menu.is-open { display: flex; }
+  .nav-menu.is-open { display: flex; animation: nav-menu-in 200ms var(--ease-out); }
 
   .nav-menu .nav-link {
     font-size: 0.9rem;
@@ -2458,7 +2500,11 @@ body.nav-open { overflow: hidden; }
   opacity: 0;
   transform: translateY(12px);
   pointer-events: none;
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+}
+
+#la-consent.la-consent--leaving {
+  transition-duration: 0.2s;
 }
 
 #la-consent.la-consent--visible {
@@ -2492,7 +2538,7 @@ body.nav-open { overflow: hidden; }
   background: none;
   border: 1px solid rgba(255, 255, 255, 0.25);
   cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 160ms var(--ease-out);
 }
 
 .la-consent__actions button:hover {
@@ -2531,4 +2577,37 @@ body.nav-open { overflow: hidden; }
 
 .home {
   line-height: 1.8;
+}
+
+
+/* Mobile menu overlay — fade in rather than cut in */
+@keyframes nav-menu-in {
+  from { opacity: 0; }
+}
+
+
+/* ============================================
+   REDUCED MOTION
+   Fewer, gentler animations — not none. Opacity stays
+   (it aids comprehension); travel, zoom and parallax go.
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.visible {
+    transform: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .page-draw { display: none; }
+
+  .gallery-item img,
+  .gallery-item:hover img { transform: none; }
+
+  #la-consent,
+  #la-consent.la-consent--visible { transform: none; }
+
+  .btn-primary:active,
+  .btn-outline:active,
+  .btn-submit:active,
+  .la-consent__actions button:active { transform: none; }
 }

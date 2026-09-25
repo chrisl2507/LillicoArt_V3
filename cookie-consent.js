@@ -17,12 +17,12 @@
   }
 
   function dismissBanner(banner) {
-    banner.style.opacity = '0';
-    banner.style.transform = 'translateY(12px)';
-    banner.style.pointerEvents = 'none';
+    // Exit faster than enter — the system is responding, not presenting
+    banner.classList.add('la-consent--leaving');
+    banner.classList.remove('la-consent--visible');
     setTimeout(function () {
       if (banner.parentNode) banner.parentNode.removeChild(banner);
-    }, 400);
+    }, 200);
   }
 
   function showBanner() {

@@ -6,6 +6,8 @@
   'use strict';
 
   var isMobile = window.innerWidth <= 768;
+  var reduceMotion = window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ============================================
      FAILSAFE — If GSAP didn't load, show the page
@@ -20,7 +22,7 @@
      ============================================ */
   var lenis = null;
 
-  if (!isMobile && typeof Lenis !== 'undefined') {
+  if (!isMobile && !reduceMotion && typeof Lenis !== 'undefined') {
     try {
       lenis = new Lenis({
         duration: 1.4,
@@ -144,7 +146,7 @@
         gsap.to(document.body, {
           opacity: 0,
           duration: 0.2,
-          ease: 'power2.in',
+          ease: 'power2.out',
           onComplete: function () { window.location.href = href; }
         });
       } else {
@@ -172,27 +174,37 @@
     // Set initial hidden states
     gsap.set(document.body, { opacity: 1 });
     gsap.set([heroImg, heroGradient, navBrand, heroEyebrow, heroTitle, navMenu], { opacity: 0 });
-    gsap.set([navBrand, heroEyebrow, heroTitle], { y: 14 });
-    if (heroCredentials) gsap.set(heroCredentials, { opacity: 0, y: 14 });
+    // Reduced motion: opacity only, no travel
+    var introY = reduceMotion ? 0 : 14;
+    gsap.set([navBrand, heroEyebrow, heroTitle], { y: introY });
+    if (heroCredentials) gsap.set(heroCredentials, { opacity: 0, y: introY });
     if (heroRule) gsap.set(heroRule, { opacity: 0 });
 
     var runOpeningSequence = function () {
       var tl = gsap.timeline();
 
-      tl.to(heroImg, { opacity: 1, duration: 1.4, ease: 'power2.out' }, 0)
-        .to(heroGradient, { opacity: 1, duration: 1, ease: 'power2.out' }, 0.6)
-        .to(navBrand, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 1.0)
-        .to(heroEyebrow, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 1.4);
+      if (reduceMotion) {
+        tl.to([heroImg, heroGradient, navBrand, heroEyebrow, heroCredentials, heroRule, heroTitle, navMenu].filter(Boolean),
+          { opacity: 1, duration: 0.4, ease: 'power2.out' });
+        return;
+      }
+
+      // Seen on every homepage visit — keep it under ~1.6s end to end
+      // and bring the nav in early so it's never waiting on decoration.
+      tl.to(heroImg, { opacity: 1, duration: 1.0, ease: 'power2.out' }, 0)
+        .to(heroGradient, { opacity: 1, duration: 0.8, ease: 'power2.out' }, 0.2)
+        .to(navBrand, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 0.3)
+        .to(navMenu, { opacity: 1, duration: 0.5, ease: 'power3.out' }, 0.4)
+        .to(heroEyebrow, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 0.5);
 
       if (heroCredentials) {
-        tl.to(heroCredentials, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 1.8);
+        tl.to(heroCredentials, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 0.6);
       }
       if (heroRule) {
-        tl.to(heroRule, { opacity: 1, duration: 0.4, ease: 'power2.out' }, 2.1);
+        tl.to(heroRule, { opacity: 1, duration: 0.4, ease: 'power2.out' }, 0.7);
       }
 
-      tl.to(heroTitle, { opacity: 1, y: 0, duration: 1.0, ease: 'power3.out' }, 2.4)
-        .to(navMenu, { opacity: 1, duration: 0.6, ease: 'power3.out' }, 2.8);
+      tl.to(heroTitle, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 0.8);
     };
 
     // Preload hero image, then run sequence
@@ -209,7 +221,7 @@
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
 
     // --- Hero parallax (homepage) ---
-    if (document.querySelector('.hero') && document.body.classList.contains('home')) {
+    if (!reduceMotion && document.querySelector('.hero') && document.body.classList.contains('home')) {
       gsap.to('.hero-image', {
         yPercent: 25,
         ease: 'none',
@@ -241,7 +253,7 @@
     // Decorative scroll reveals run on desktop only — mobile shows content
     // directly (fragile triggers + cheap devices = risk of hidden artwork).
     var mmScroll = gsap.matchMedia();
-    mmScroll.add('(min-width: 769px)', function () {
+    mmScroll.add('(min-width: 769px) and (prefers-reduced-motion: no-preference)', function () {
 
     // --- Featured carousel — fade in on scroll enter ---
     if (document.querySelector('.featured-carousel__stage')) {
@@ -493,7 +505,7 @@
     function csNext() { csGoTo((csCurrentIdx + 1) % N); }
     function csPrev() { csGoTo((csCurrentIdx - 1 + N) % N); }
 
-    function csStartAuto() { csStopAuto(); csTimer = setInterval(csNext, CS_INTERVAL); }
+    function csStartAuto() { csStopAuto(); if (!reduceMotion) csTimer = setInterval(csNext, CS_INTERVAL); }
     function csStopAuto()  { if (csTimer) { clearInterval(csTimer); csTimer = null; } }
 
     // Dot click nav
@@ -535,7 +547,7 @@
     var titleEl = immersive.querySelector('.gallery-piece-title');
     var metaEl = immersive.querySelector('.gallery-piece-meta');
     var currentPiece = 0;
-    var isAnimating = false;
+    var pieceTl = null;
 
     if (totalEl) totalEl.textContent = String(pieces.length).padStart(2, '0');
 
@@ -547,8 +559,10 @@
     };
 
     var goTo = function (index) {
-      if (index === currentPiece || isAnimating) return;
-      isAnimating = true;
+      if (index === currentPiece) return;
+      // Rapid arrow presses / clicks: finish the running crossfade instantly
+      // and start the next one, rather than swallowing the input.
+      if (pieceTl) pieceTl.progress(1);
 
       var outgoing = pieces[currentPiece];
       var incoming = pieces[index];
@@ -557,20 +571,20 @@
       if (window.galleryHydrate) window.galleryHydrate(incoming.querySelector('img'));
 
       gsap.set(incoming, { opacity: 0 });
-      gsap.set(incoming.querySelector('img'), { scale: 0.97 });
+      gsap.set(incoming.querySelector('img'), { scale: reduceMotion ? 1 : 0.97 });
       incoming.classList.add('active');
 
-      var tl = gsap.timeline({
+      var tl = pieceTl = gsap.timeline({
         onComplete: function () {
           outgoing.classList.remove('active');
           gsap.set(outgoing, { opacity: 0 });
-          isAnimating = false;
+          if (pieceTl === tl) pieceTl = null;
         }
       });
 
-      tl.to(outgoing, { opacity: 0, duration: 0.25, ease: 'power2.in' }, 0)
-        .to(incoming, { opacity: 1, duration: 0.35, ease: 'power2.out' }, 0.15)
-        .to(incoming.querySelector('img'), { scale: 1, duration: 0.4, ease: 'power3.out' }, 0.15);
+      tl.to(outgoing, { opacity: 0, duration: 0.2, ease: 'power2.out' }, 0)
+        .to(incoming, { opacity: 1, duration: 0.3, ease: 'power2.out' }, 0.1)
+        .to(incoming.querySelector('img'), { scale: 1, duration: 0.35, ease: 'power3.out' }, 0.1);
 
       currentPiece = index;
       updateInfo(index);
@@ -665,12 +679,12 @@
   function switchToGrid() {
     if (!immersive || !gridView) return;
     gsap.to(immersive, {
-      opacity: 0, y: -20, duration: 0.25, ease: 'power2.in',
+      opacity: 0, y: reduceMotion ? 0 : -20, duration: 0.2, ease: 'power2.out',
       onComplete: function () { immersive.style.display = 'none'; }
     });
     gridView.style.display = 'block';
     gsap.fromTo(gridView,
-      { opacity: 0, y: 20 },
+      { opacity: 0, y: reduceMotion ? 0 : 20 },
       { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out', delay: 0.15 }
     );
     gridView.classList.add('active');
@@ -680,7 +694,7 @@
   function switchToImmersive() {
     if (!immersive || !gridView) return;
     gsap.to(gridView, {
-      opacity: 0, y: 20, duration: 0.25, ease: 'power2.in',
+      opacity: 0, y: reduceMotion ? 0 : 20, duration: 0.2, ease: 'power2.out',
       onComplete: function () {
         gridView.style.display = 'none';
         gridView.classList.remove('active');
@@ -688,7 +702,7 @@
     });
     immersive.style.display = '';
     gsap.fromTo(immersive,
-      { opacity: 0, y: -20 },
+      { opacity: 0, y: reduceMotion ? 0 : -20 },
       { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out', delay: 0.15 }
     );
     if (lenis) lenis.stop();
@@ -706,6 +720,7 @@
     gridItems.forEach(function (item, index) {
       item.addEventListener('click', function () {
         // Set the correct piece before switching view
+        if (pieceTl) pieceTl.progress(1);
         pieces.forEach(function (p, i) {
           if (i === index) {
             p.classList.add('active');
